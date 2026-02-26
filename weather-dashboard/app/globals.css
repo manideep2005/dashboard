@@ -1,0 +1,180 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Theme Variables ── */
+:root[data-theme="dark"],
+:root {
+  --bg-primary: #0a0f1e;
+  --bg-secondary: rgba(255, 255, 255, 0.04);
+  --bg-hover: rgba(255, 255, 255, 0.07);
+  --border-color: rgba(255, 255, 255, 0.08);
+  --border-hover: rgba(255, 255, 255, 0.14);
+  --text-primary: #e2e8f0;
+  --text-secondary: rgba(255, 255, 255, 0.5);
+  --text-muted: rgba(255, 255, 255, 0.3);
+  --text-faint: rgba(255, 255, 255, 0.15);
+  --scrollbar-track: #0a0f1e;
+  --scrollbar-thumb: #1e3a5f;
+  --recharts-grid: rgba(255, 255, 255, 0.05);
+  --recharts-text: rgba(255, 255, 255, 0.4);
+  --gradient-bg: #0a0f1e;
+  --gradient-orb-1: rgba(59, 130, 246, 0.08);
+  --gradient-orb-2: rgba(139, 92, 246, 0.06);
+  --gradient-orb-3: rgba(16, 185, 129, 0.05);
+}
+
+:root[data-theme="light"] {
+  --bg-primary: #f0f4ff;
+  --bg-secondary: rgba(255, 255, 255, 0.7);
+  --bg-hover: rgba(255, 255, 255, 0.9);
+  --border-color: rgba(0, 0, 0, 0.08);
+  --border-hover: rgba(0, 0, 0, 0.15);
+  --text-primary: #1e293b;
+  --text-secondary: rgba(15, 23, 42, 0.6);
+  --text-muted: rgba(15, 23, 42, 0.45);
+  --text-faint: rgba(15, 23, 42, 0.25);
+  --scrollbar-track: #e2e8f0;
+  --scrollbar-thumb: #94a3b8;
+  --recharts-grid: rgba(0, 0, 0, 0.05);
+  --recharts-text: rgba(15, 23, 42, 0.5);
+  --gradient-bg: #dbeafe;
+  --gradient-orb-1: rgba(59, 130, 246, 0.12);
+  --gradient-orb-2: rgba(139, 92, 246, 0.08);
+  --gradient-orb-3: rgba(16, 185, 129, 0.07);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: 'Inter', Arial, Helvetica, sans-serif;
+  overflow-x: hidden;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: 3px;
+}
+
+/* Glassmorphism */
+.glass {
+  background: var(--bg-secondary);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border-color);
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+.glass-hover:hover {
+  background: var(--bg-hover);
+  border-color: var(--border-hover);
+}
+
+/* Glow effects */
+.glow-blue {
+  box-shadow: 0 0 30px rgba(59, 130, 246, 0.15);
+}
+.glow-purple {
+  box-shadow: 0 0 30px rgba(139, 92, 246, 0.15);
+}
+.glow-green {
+  box-shadow: 0 0 30px rgba(16, 185, 129, 0.15);
+}
+.glow-orange {
+  box-shadow: 0 0 30px rgba(249, 115, 22, 0.15);
+}
+
+/* Gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, #60a5fa, #a78bfa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Animated background */
+.bg-animated {
+  background: radial-gradient(ellipse at 20% 50%, var(--gradient-orb-1) 0%, transparent 50%),
+              radial-gradient(ellipse at 80% 20%, var(--gradient-orb-2) 0%, transparent 40%),
+              radial-gradient(ellipse at 50% 80%, var(--gradient-orb-3) 0%, transparent 40%),
+              var(--gradient-bg);
+  min-height: 100vh;
+  transition: background 0.4s ease;
+}
+
+/* Shimmer */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* Recharts overrides */
+.recharts-cartesian-grid-horizontal line,
+.recharts-cartesian-grid-vertical line {
+  stroke: var(--recharts-grid);
+}
+.recharts-text {
+  fill: var(--recharts-text) !important;
+  font-size: 11px !important;
+}
+.recharts-tooltip-wrapper {
+  outline: none;
+}
+
+/* Hide scrollbar but keep scroll */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Light theme text overrides */
+[data-theme="light"] .text-white {
+  color: var(--text-primary) !important;
+}
+[data-theme="light"] .text-white\/90 { color: rgba(15,23,42,0.9) !important; }
+[data-theme="light"] .text-white\/80 { color: rgba(15,23,42,0.8) !important; }
+[data-theme="light"] .text-white\/70 { color: rgba(15,23,42,0.7) !important; }
+[data-theme="light"] .text-white\/60 { color: rgba(15,23,42,0.6) !important; }
+[data-theme="light"] .text-white\/50 { color: rgba(15,23,42,0.5) !important; }
+[data-theme="light"] .text-white\/40 { color: rgba(15,23,42,0.45) !important; }
+[data-theme="light"] .text-white\/35 { color: rgba(15,23,42,0.4) !important; }
+[data-theme="light"] .text-white\/30 { color: rgba(15,23,42,0.35) !important; }
+[data-theme="light"] .text-white\/25 { color: rgba(15,23,42,0.3) !important; }
+[data-theme="light"] .text-white\/20 { color: rgba(15,23,42,0.25) !important; }
+[data-theme="light"] .text-white\/15 { color: rgba(15,23,42,0.2) !important; }
+[data-theme="light"] .text-white\/10 { color: rgba(15,23,42,0.15) !important; }
+[data-theme="light"] .text-white\/8  { color: rgba(15,23,42,0.12) !important; }
+[data-theme="light"] .border-white\/5  { border-color: rgba(0,0,0,0.06) !important; }
+[data-theme="light"] .border-white\/8  { border-color: rgba(0,0,0,0.08) !important; }
+[data-theme="light"] .border-white\/10 { border-color: rgba(0,0,0,0.1) !important; }
+[data-theme="light"] .bg-white\/5  { background-color: rgba(0,0,0,0.04) !important; }
+[data-theme="light"] .bg-white\/8  { background-color: rgba(0,0,0,0.06) !important; }
+[data-theme="light"] .bg-white\/10 { background-color: rgba(0,0,0,0.08) !important; }
+
+/* Leaflet overrides */
+.leaflet-container {
+  border-radius: 1rem;
+  z-index: 1;
+}
+.leaflet-control-attribution {
+  font-size: 9px !important;
+  background: var(--bg-secondary) !important;
+  color: var(--text-muted) !important;
+}
