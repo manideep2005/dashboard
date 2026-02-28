@@ -2,7 +2,6 @@
 
 import { useSession, signOut } from "next-auth/react";
 import { motion, AnimatePresence } from "framer-motion";
-import { WiDaySunny } from "react-icons/wi";
 import { IoNotificationsOutline, IoSettingsOutline } from "react-icons/io5";
 import { RiLogoutBoxLine, RiSunLine, RiMoonLine } from "react-icons/ri";
 import { MdOutlineDeviceThermostat } from "react-icons/md";
@@ -31,15 +30,19 @@ export default function Navbar({ alertCount = 0 }: { alertCount?: number }) {
     >
       <div className="flex items-center justify-between px-6 py-4">
         {/* Logo */}
-        <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center shadow-lg shadow-blue-500/30">
-            <WiDaySunny className="text-white text-xl" />
-          </div>
+        <Link href="/dashboard" className="flex items-center gap-3">
+          <Image
+            src="/logo.png"
+            alt="WeatherAI Logo"
+            width={36}
+            height={36}
+            className="rounded-xl shadow-lg shadow-blue-500/30"
+          />
           <div>
             <span className="font-bold text-lg gradient-text">WeatherAI</span>
             <span className="text-white/30 text-xs block -mt-1">Dashboard</span>
           </div>
-        </div>
+        </Link>
 
         {/* Right side */}
         <div className="flex items-center gap-2">
