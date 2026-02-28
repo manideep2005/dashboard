@@ -55,9 +55,8 @@ function Toggle({ enabled, onChange }: { enabled: boolean; onChange: () => void 
   return (
     <button
       onClick={onChange}
-      className={`relative w-14 h-8 rounded-full transition-colors flex-shrink-0 ${
-        enabled ? "bg-emerald-500" : "bg-white/10"
-      }`}
+      className={`relative w-14 h-8 rounded-full transition-colors flex-shrink-0 ${enabled ? "bg-emerald-500" : "bg-white/10"
+        }`}
     >
       <motion.div
         className="absolute top-1 w-6 h-6 bg-white rounded-full shadow"
@@ -183,9 +182,8 @@ export default function SettingsPage() {
             </div>
             <button
               onClick={toggleTheme}
-              className={`relative w-14 h-8 rounded-full transition-colors ${
-                theme === "dark" ? "bg-blue-600" : "bg-amber-400"
-              }`}
+              className={`relative w-14 h-8 rounded-full transition-colors ${theme === "dark" ? "bg-blue-600" : "bg-amber-400"
+                }`}
             >
               <motion.div
                 className="absolute top-1 w-6 h-6 bg-white rounded-full shadow flex items-center justify-center"
@@ -211,11 +209,10 @@ export default function SettingsPage() {
               <button
                 key={u.value}
                 onClick={() => setUnit(u.value)}
-                className={`flex-1 glass rounded-2xl p-4 text-center transition-all border ${
-                  unit === u.value
+                className={`flex-1 glass rounded-2xl p-4 text-center transition-all border ${unit === u.value
                     ? "border-blue-500/50 bg-blue-500/10 text-blue-400"
                     : "border-transparent text-white/50 hover:text-white hover:bg-white/5"
-                }`}
+                  }`}
               >
                 <p className="text-2xl font-bold">{u.label}</p>
                 <p className="text-xs mt-1 opacity-60">{u.desc}</p>
@@ -238,11 +235,10 @@ export default function SettingsPage() {
               <button
                 key={iv.value}
                 onClick={() => setAutoRefreshInterval(iv.value)}
-                className={`px-4 py-2 rounded-xl text-sm font-medium transition-all border ${
-                  autoRefreshInterval === iv.value
+                className={`px-4 py-2 rounded-xl text-sm font-medium transition-all border ${autoRefreshInterval === iv.value
                     ? "border-blue-500/50 bg-blue-500/10 text-blue-400"
                     : "glass border-transparent text-white/50 hover:text-white"
-                }`}
+                  }`}
               >
                 {iv.label}
               </button>
@@ -285,11 +281,10 @@ export default function SettingsPage() {
                       <button
                         key={ch.value}
                         onClick={() => toggleChannel(ch.value)}
-                        className={`glass rounded-2xl p-4 text-left transition-all border ${
-                          active
+                        className={`glass rounded-2xl p-4 text-left transition-all border ${active
                             ? "border-blue-500/50 bg-blue-500/10"
                             : "border-transparent hover:bg-white/5"
-                        }`}
+                          }`}
                       >
                         <div className="flex items-center gap-2 mb-1.5">
                           <span className={active ? "text-blue-400" : "text-white/40"}>
@@ -379,7 +374,7 @@ export default function SettingsPage() {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5 }}
         >
-          WeatherAI Dashboard v2.0
+          WeatherAI Dashboard v2.0 <span className="mx-1">&bull;</span> <span className="text-white/20 font-medium">by VIT AP University</span>
         </motion.p>
       </main>
     </div>

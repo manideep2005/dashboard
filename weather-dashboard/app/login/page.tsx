@@ -11,6 +11,9 @@ import { MdAir } from "react-icons/md";
 import { FcGoogle } from "react-icons/fc";
 import { TbShieldCheck, TbWorldPin, TbChartAreaLine } from "react-icons/tb";
 import { IoArrowForward } from "react-icons/io5";
+import { useAppStore } from "@/store/appStore";
+
+import Image from "next/image";
 
 const features = [
   {
@@ -164,6 +167,8 @@ function RadarPulse() {
 }
 
 export default function LoginPage() {
+  const { theme } = useAppStore();
+
   return (
     <div className="min-h-screen bg-animated flex relative overflow-hidden">
 
@@ -201,6 +206,8 @@ export default function LoginPage() {
           <p className="text-white/40 text-lg leading-relaxed">
             Real-time weather & air quality monitoring
             for any city worldwide.
+            <br />
+            <span className="text-white/30 text-sm mt-2 block font-medium">by VIT AP University</span>
           </p>
         </motion.div>
 
@@ -255,18 +262,19 @@ export default function LoginPage() {
         >
           {/* Logo */}
           <motion.div
-            className="flex items-center gap-3 mb-8"
+            className="flex items-center justify-center mb-10 -mt-20"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2 }}
           >
-            <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center shadow-lg shadow-blue-500/30">
-              <WiDaySunny size={28} className="text-white" />
-            </div>
-            <div>
-              <p className="text-white font-bold text-lg leading-none">WeatherAI</p>
-              <p className="text-white/30 text-xs mt-0.5">Dashboard</p>
-            </div>
+            <Image
+              src="/image-copy.png"
+              alt="WeatherAI Dashboard Logo"
+              width={220}
+              height={80}
+              className="object-contain"
+              priority
+            />
           </motion.div>
 
           {/* Headline */}
@@ -345,7 +353,7 @@ export default function LoginPage() {
             transition={{ delay: 0.7 }}
           >
             By signing in you agree to our Terms & Privacy Policy.
-            <br />Powered by OpenWeatherMap API
+            <br />Powered by OpenWeatherMap API &bull; <span className="text-white/20 font-medium">by VIT AP University</span>
           </motion.p>
         </motion.div>
       </div>

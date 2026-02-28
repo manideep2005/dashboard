@@ -31,16 +31,20 @@ export default function Navbar({ alertCount = 0 }: { alertCount?: number }) {
       <div className="flex items-center justify-between px-6 py-4">
         {/* Logo */}
         <Link href="/dashboard" className="flex items-center gap-3">
-          <Image
-            src="/logo.png"
-            alt="WeatherAI Logo"
-            width={36}
-            height={36}
-            className="rounded-xl shadow-lg shadow-blue-500/30"
-          />
+          <div className={`w-14 h-14 rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/30 ${theme === "dark" ? "bg-white/10" : "bg-white"}`}>
+            <Image
+              src="/logo.png"
+              alt="WeatherAI Logo"
+              width={48}
+              height={48}
+              className={`rounded-lg object-contain transition-all duration-300 ${theme === "dark" ? "brightness-0 invert opacity-90" : ""}`}
+            />
+          </div>
           <div>
-            <span className="font-bold text-lg gradient-text">WeatherAI</span>
-            <span className="text-white/30 text-xs block -mt-1">Dashboard</span>
+            <span className="font-bold text-2xl gradient-text">WeatherAI</span>
+            <span className="text-white/30 text-base block -mt-1">
+              Dashboard <span className="text-white/20 text-xs ml-1 font-medium">by VIT AP University</span>
+            </span>
           </div>
         </Link>
 
