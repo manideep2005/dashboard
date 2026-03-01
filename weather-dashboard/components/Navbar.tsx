@@ -29,24 +29,36 @@ export default function Navbar({ alertCount = 0 }: { alertCount?: number }) {
       transition={{ duration: 0.5 }}
     >
       <div className="flex items-center justify-between px-6 py-4">
-        {/* Logo */}
-        <Link href="/dashboard" className="flex items-center gap-3">
-          <div className={`w-14 h-14 rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/30 ${theme === "dark" ? "bg-white/10" : "bg-white"}`}>
-            <Image
-              src="/logo.png"
-              alt="WeatherAI Logo"
-              width={48}
-              height={48}
-              className={`rounded-lg object-contain transition-all duration-300 ${theme === "dark" ? "brightness-0 invert opacity-90" : ""}`}
-            />
-          </div>
-          <div>
-            <span className="font-bold text-2xl gradient-text">WeatherAI</span>
-            <span className="text-white/30 text-base block -mt-1">
-              Dashboard <span className="text-white/20 text-xs ml-1 font-medium">by VIT AP University</span>
-            </span>
-          </div>
-        </Link>
+        {/* Logo and Nav Links */}
+        <div className="flex items-center gap-8">
+          <Link href="/dashboard" className="flex items-center gap-3">
+            <div className={`w-14 h-14 rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/30 ${theme === "dark" ? "bg-white/10" : "bg-white"}`}>
+              <Image
+                src="/logo.png"
+                alt="WeatherAI Logo"
+                width={48}
+                height={48}
+                className={`rounded-lg object-contain transition-all duration-300 ${theme === "dark" ? "brightness-0 invert opacity-90" : ""}`}
+              />
+            </div>
+            <div>
+              <span className="font-bold text-2xl gradient-text">WeatherAI</span>
+              <span className="text-white/30 text-base block -mt-1">
+                Dashboard <span className="text-white/20 text-xs ml-1 font-medium">by VIT AP University</span>
+              </span>
+            </div>
+          </Link>
+
+          {/* New Dashboard Links */}
+          <nav className="hidden md:flex items-center gap-2">
+            <Link href="/solar" className="glass px-4 py-2 rounded-lg text-sm font-semibold text-white/70 hover:text-white transition-colors">
+              Solar Analytics
+            </Link>
+            <Link href="/energy" className="glass px-4 py-2 rounded-lg text-sm font-semibold text-[#2d9da6] hover:text-teal-300 transition-colors">
+              Electric Dash
+            </Link>
+          </nav>
+        </div>
 
         {/* Right side */}
         <div className="flex items-center gap-2">
