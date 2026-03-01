@@ -257,25 +257,39 @@ export default function EnergyDashboard() {
                                 exit={{ height: 0, opacity: 0 }}
                                 className="overflow-hidden"
                             >
-                                <div className="bg-white dark:bg-slate-800 border border-t-0 border-slate-200 dark:border-slate-700 p-6 rounded-b-xl grid grid-cols-1 md:grid-cols-2 gap-6 -mt-2 relative z-0">
+                                <div className="bg-white dark:bg-slate-800 border border-t-0 border-slate-200 dark:border-slate-700 p-6 rounded-b-xl grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 -mt-2 relative z-0">
                                     <div className="space-y-4">
                                         <div>
                                             <h4 className="font-bold text-[#2d9da6] mb-1">Hourly Aggregated Flow</h4>
-                                            <p className="text-sm text-slate-500 dark:text-slate-400">Summarizes active power utilization aggregated into hourly chunks showing exact temporal peaks in physical load.</p>
+                                            <p className="text-sm text-slate-500 dark:text-slate-400">Summarizes active power utilization into hourly chunks showing exact temporal peaks in physical load.</p>
                                         </div>
                                         <div>
                                             <h4 className="font-bold text-blue-500 mb-1">Detailed Power Trend</h4>
-                                            <p className="text-sm text-slate-500 dark:text-slate-400">The high-resolution temporal distribution of active power (kW). Provides granular insight into machinery spin-up or baseline loads.</p>
+                                            <p className="text-sm text-slate-500 dark:text-slate-400">The high-resolution temporal distribution of active power (kW). Provides granular insight into machinery spin-up.</p>
+                                        </div>
+                                        <div>
+                                            <h4 className="font-bold text-[#f59e0b] mb-1">Cumulative Energy</h4>
+                                            <p className="text-sm text-slate-500 dark:text-slate-400">Tracks the running continuous total of energy (kWh) used up to that point in the day on the meter.</p>
                                         </div>
                                     </div>
                                     <div className="space-y-4">
                                         <div>
                                             <h4 className="font-bold text-emerald-500 mb-1">Phase Load Contribution</h4>
-                                            <p className="text-sm text-slate-500 dark:text-slate-400">The physical percentage breakdown of load drawn on Phase L1 vs L2 vs L3. Highly unbalanced loads can trip main breakers.</p>
+                                            <p className="text-sm text-slate-500 dark:text-slate-400">The physical percentage breakdown of load drawn on Phase L1 vs L2 vs L3. Highly unbalanced loads can trip breakers.</p>
                                         </div>
                                         <div>
+                                            <h4 className="font-bold text-[#2d9da6] mb-1">Phase Current Analysis</h4>
+                                            <p className="text-sm text-slate-500 dark:text-slate-400">Tracks exact amperage load per phase over time, identifying transient imbalances in current draw.</p>
+                                        </div>
+                                    </div>
+                                    <div className="space-y-4">
+                                        <div>
                                             <h4 className="font-bold text-amber-500 mb-1">Comparative Daily Analysis</h4>
-                                            <p className="text-sm text-slate-500 dark:text-slate-400">Overlays consumption metrics day-by-day directly on top of each other to identify abnormalities in expected usage routines.</p>
+                                            <p className="text-sm text-slate-500 dark:text-slate-400">Overlays consumption metrics day-by-day directly on top of each other to identify abnormalities in expected usage.</p>
+                                        </div>
+                                        <div>
+                                            <h4 className="font-bold text-[#2d9da6] mb-1">Grid Voltage Stability</h4>
+                                            <p className="text-sm text-slate-500 dark:text-slate-400">Tracks phase voltage profiles (V). Significant drops can signify a weak neutral or heavy machinery startup sag.</p>
                                         </div>
                                     </div>
                                 </div>
@@ -366,6 +380,69 @@ export default function EnergyDashboard() {
                                             <YAxis stroke="var(--recharts-text)" tick={{ fill: "var(--recharts-text)", fontSize: 12 }} axisLine={false} tickLine={false} />
                                             <Tooltip content={<CustomTooltip />} />
                                             <Area type="monotone" dataKey="activePower" name="Active Power (kW)" stroke="#2d9da6" strokeWidth={2.5} fill="url(#areaGrad)" activeDot={{ r: 5, fill: "#2d9da6", stroke: "#fff", strokeWidth: 2 }} />
+                                        </AreaChart>
+                                    </ResponsiveContainer>
+                                </div>
+                            </div>
+
+                            {/* Grid Voltage Stability (Line) */}
+                            <div className="lg:col-span-3 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 shadow-sm h-[400px] flex flex-col mt-4">
+                                <h3 className="text-lg font-bold text-slate-800 dark:text-white mb-2">Grid Voltage Stability</h3>
+                                <p className="text-xs text-slate-500 mb-6">Phase-to-Neutral active voltage tracking (V)</p>
+                                <div className="flex-1 w-full min-h-0">
+                                    <ResponsiveContainer width="100%" height="100%">
+                                        <LineChart data={activeData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+                                            <CartesianGrid strokeDasharray="3 3" stroke="var(--recharts-grid)" vertical={false} />
+                                            <XAxis dataKey="timeOnly" stroke="var(--recharts-text)" tick={{ fill: "var(--recharts-text)", fontSize: 12 }} minTickGap={30} axisLine={false} tickLine={false} />
+                                            <YAxis domain={['auto', 'auto']} stroke="var(--recharts-text)" tick={{ fill: "var(--recharts-text)", fontSize: 12 }} axisLine={false} tickLine={false} />
+                                            <Tooltip content={<CustomTooltip />} />
+                                            <Legend wrapperStyle={{ paddingTop: "20px", fontSize: "14px" }} iconType="circle" />
+                                            <Line type="monotone" dataKey="v1" name="Phase L1 (V)" stroke={chartColors[0]} strokeWidth={2} dot={false} activeDot={{ r: 4 }} />
+                                            <Line type="monotone" dataKey="v2" name="Phase L2 (V)" stroke={chartColors[1]} strokeWidth={2} dot={false} activeDot={{ r: 4 }} />
+                                            <Line type="monotone" dataKey="v3" name="Phase L3 (V)" stroke={chartColors[2]} strokeWidth={2} dot={false} activeDot={{ r: 4 }} />
+                                        </LineChart>
+                                    </ResponsiveContainer>
+                                </div>
+                            </div>
+
+                            {/* Phase Current Analysis (Line) */}
+                            <div className="lg:col-span-3 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 shadow-sm h-[400px] flex flex-col mt-4">
+                                <h3 className="text-lg font-bold text-slate-800 dark:text-white mb-2">Phase Current Analysis</h3>
+                                <p className="text-xs text-slate-500 mb-6">Current draw per phase showing load balance (A)</p>
+                                <div className="flex-1 w-full min-h-0">
+                                    <ResponsiveContainer width="100%" height="100%">
+                                        <LineChart data={activeData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+                                            <CartesianGrid strokeDasharray="3 3" stroke="var(--recharts-grid)" vertical={false} />
+                                            <XAxis dataKey="timeOnly" stroke="var(--recharts-text)" tick={{ fill: "var(--recharts-text)", fontSize: 12 }} minTickGap={30} axisLine={false} tickLine={false} />
+                                            <YAxis stroke="var(--recharts-text)" tick={{ fill: "var(--recharts-text)", fontSize: 12 }} axisLine={false} tickLine={false} />
+                                            <Tooltip content={<CustomTooltip />} />
+                                            <Legend wrapperStyle={{ paddingTop: "20px", fontSize: "14px" }} iconType="circle" />
+                                            <Line type="monotone" dataKey="phase1" name="Phase L1 (A)" stroke={chartColors[0]} strokeWidth={2} dot={false} activeDot={{ r: 4 }} />
+                                            <Line type="monotone" dataKey="phase2" name="Phase L2 (A)" stroke={chartColors[1]} strokeWidth={2} dot={false} activeDot={{ r: 4 }} />
+                                            <Line type="monotone" dataKey="phase3" name="Phase L3 (A)" stroke={chartColors[2]} strokeWidth={2} dot={false} activeDot={{ r: 4 }} />
+                                        </LineChart>
+                                    </ResponsiveContainer>
+                                </div>
+                            </div>
+
+                            {/* Cumulative Energy Tracker (Area) */}
+                            <div className="lg:col-span-3 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 shadow-sm h-[400px] flex flex-col mt-4">
+                                <h3 className="text-lg font-bold text-slate-800 dark:text-white mb-2">Cumulative Energy Consumed</h3>
+                                <p className="text-xs text-slate-500 mb-6">Total meter accumulation throughout the day (kWh)</p>
+                                <div className="flex-1 w-full min-h-0">
+                                    <ResponsiveContainer width="100%" height="100%">
+                                        <AreaChart data={activeData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+                                            <defs>
+                                                <linearGradient id="energyGrad" x1="0" y1="0" x2="0" y2="1">
+                                                    <stop offset="5%" stopColor={chartColors[3]} stopOpacity={0.2} />
+                                                    <stop offset="95%" stopColor={chartColors[3]} stopOpacity={0} />
+                                                </linearGradient>
+                                            </defs>
+                                            <CartesianGrid strokeDasharray="4 4" stroke="var(--recharts-grid)" vertical={false} />
+                                            <XAxis dataKey="timeOnly" stroke="var(--recharts-text)" tick={{ fill: "var(--recharts-text)", fontSize: 12 }} minTickGap={30} axisLine={false} tickLine={false} />
+                                            <YAxis domain={['auto', 'auto']} stroke="var(--recharts-text)" tick={{ fill: "var(--recharts-text)", fontSize: 12 }} axisLine={false} tickLine={false} />
+                                            <Tooltip content={<CustomTooltip />} />
+                                            <Area type="monotone" dataKey="energy" name="Energy (kWh)" stroke={chartColors[3]} strokeWidth={2.5} fill="url(#energyGrad)" activeDot={{ r: 5 }} />
                                         </AreaChart>
                                     </ResponsiveContainer>
                                 </div>
