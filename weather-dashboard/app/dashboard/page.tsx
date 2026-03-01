@@ -17,7 +17,8 @@ import AISummary from "@/components/AISummary";
 import HistoricalChart from "@/components/HistoricalChart";
 import AutoRefresh from "@/components/AutoRefresh";
 import WeatherAlerts from "@/components/WeatherAlerts";
-import { IoRefreshOutline, IoWarningOutline, IoTimeOutline } from "react-icons/io5";
+import { IoRefreshOutline, IoWarningOutline, IoTimeOutline, IoSunnyOutline } from "react-icons/io5";
+import Link from "next/link";
 
 export default function DashboardPage() {
   const { fetchAll, loading, error, weather, city, airPollution, uvIndex } = useWeatherStore();
@@ -72,6 +73,16 @@ export default function DashboardPage() {
           </motion.div>
 
           <div className="flex items-center gap-3 flex-wrap">
+            <Link href="/solar">
+              <motion.button
+                className="glass glass-hover px-4 h-11 rounded-2xl flex items-center gap-2 text-white/70 hover:text-cyan-400 transition-colors font-medium text-sm"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <IoSunnyOutline size={20} />
+                Solar
+              </motion.button>
+            </Link>
             <AutoRefresh />
             <LocationSearch />
             <motion.button
