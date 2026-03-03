@@ -9,17 +9,21 @@ export default auth((req) => {
   const isOnLogin = nextUrl.pathname === "/login";
   const isOnRoot = nextUrl.pathname === "/";
 
+  if (isOnRoot && !isLoggedIn) {
+    return NextResponse.redirect(new URL("/login", nextUrl));
+  }
+
   if (isProtected && !isLoggedIn) {
     return NextResponse.redirect(new URL("/login", nextUrl));
   }
 
-  if ((isOnLogin || isOnRoot) && isLoggedIn) {
-    return NextResponse.redirect(new URL("/dashboard", nextUrl));
+  if (isOnLogin && isLoggedIn) {
+    return NextResponse.redirect(new URL("/", nextUrl));
   }
 
   return NextResponse.next();
 });
 
 export const config = {
-  matcher: ["/((?!api|_next/static|_next/image|favicon.ico|manifest.json|sw.js|icon-.*).*)" ],
+  matcher: ["/((?!api|_next/static|_next/image|favicon.ico|manifest.json|sw.js|icon-.*).*)"],
 };

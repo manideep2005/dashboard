@@ -1,7 +1,7 @@
 {
-  "name": "WeatherAI Dashboard",
-  "short_name": "WeatherAI",
-  "description": "Real-time weather and air quality dashboard",
+  "name": "Smart Campus Assets Monitoring System (SCAMS)",
+  "short_name": "SCAMS",
+  "description": "Real-time campus assets monitoring dashboard",
   "start_url": "/dashboard",
   "display": "standalone",
   "background_color": "#0a0f1e",

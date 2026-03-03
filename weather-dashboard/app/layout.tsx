@@ -8,13 +8,13 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "WeatherAI Dashboard",
-  description: "Real-time weather and air quality dashboard",
+  title: "Smart Campus Assets Monitoring System (SCAMS)",
+  description: "Real-time campus assets monitoring dashboard",
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
     statusBarStyle: "black-translucent",
-    title: "WeatherAI",
+    title: "SCAMS",
   },
 };
 

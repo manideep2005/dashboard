@@ -60,12 +60,12 @@ const StatCard = ({ label, value, unit, icon: Icon, colorName }: any) => {
   );
 };
 
-export default function SolarDashboard() {
+export default function SustainableDashboard() {
   const [dataPayload, setDataPayload] = useState<ApiResponse | null>(null);
   const [selectedTab, setSelectedTab] = useState<string>("All Data");
 
   useEffect(() => {
-    fetch("/api/solar-data")
+    fetch("/api/sustainable-data")
       .then(res => res.json())
       .then((parsed: ApiResponse) => {
         setDataPayload(parsed);
@@ -162,8 +162,8 @@ export default function SolarDashboard() {
       <main className="max-w-[1800px] mx-auto px-6 py-8 relative z-10">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10">
           <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-            <h1 className="text-4xl font-extrabold text-white mb-2 tracking-tight">Solar Dashboard</h1>
-            <p className="text-white/60 text-sm font-medium">Real-time photovoltaic system analytics seamlessly adapting to your theme.</p>
+            <h1 className="text-4xl font-extrabold text-white mb-2 tracking-tight">Sustainability Dashboard</h1>
+            <p className="text-white/60 text-sm font-medium">Real-time sustainability system analytics seamlessly adapting to your theme.</p>
           </motion.div>
 
           <motion.button

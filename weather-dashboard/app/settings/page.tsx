@@ -404,7 +404,7 @@ export default function SettingsPage() {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5 }}
         >
-          WeatherAI Dashboard v2.0 <span className="mx-1">&bull;</span> <span className="text-white/20 font-medium">by VIT AP University</span>
+          SCAMS Dashboard v2.0 <span className="mx-1">&bull;</span> <span className="text-white/20 font-medium">by VIT AP University</span>
         </motion.p>
       </main>
     </div>

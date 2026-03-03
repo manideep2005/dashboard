@@ -18,32 +18,32 @@ import Image from "next/image";
 const features = [
   {
     icon: <WiThermometer size={28} />,
-    title: "Live Weather",
-    desc: "Real-time temperature, wind & pressure updates",
+    title: "Environment",
+    desc: "Real-time temperature & air quality",
     color: "text-orange-400",
     bg: "rgba(251,146,60,0.08)",
     border: "rgba(251,146,60,0.2)",
   },
   {
-    icon: <MdAir size={22} />,
-    title: "Air Quality Index",
-    desc: "PM2.5, PM10, NO₂, O₃, SO₂, CO monitoring",
+    icon: <TbShieldCheck size={22} />,
+    title: "Surveillance",
+    desc: "Campus security & asset monitoring",
     color: "text-emerald-400",
     bg: "rgba(52,211,153,0.08)",
     border: "rgba(52,211,153,0.2)",
   },
   {
     icon: <TbChartAreaLine size={22} />,
-    title: "5-Day Forecast",
-    desc: "Hourly & daily forecasts with visual charts",
+    title: "Energy & Water",
+    desc: "Power consumption, solar tracking & water usage",
     color: "text-blue-400",
     bg: "rgba(96,165,250,0.08)",
     border: "rgba(96,165,250,0.2)",
   },
   {
     icon: <TbWorldPin size={22} />,
-    title: "Any City Worldwide",
-    desc: "Search any city or use GPS location",
+    title: "Sustainability",
+    desc: "Carbon footprint & eco-metrics",
     color: "text-purple-400",
     bg: "rgba(167,139,250,0.08)",
     border: "rgba(167,139,250,0.2)",
@@ -194,18 +194,18 @@ export default function LoginPage() {
             transition={{ delay: 0.2 }}
           >
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-            <span className="text-white/60 text-xs font-medium tracking-wide">Live weather intelligence</span>
+            <span className="text-white/60 text-xs font-medium tracking-wide">Live campus intelligence</span>
           </motion.div>
 
           <h1 className="text-5xl font-bold text-white leading-tight mb-4">
-            Your Personal<br />
-            <span className="gradient-text">Weather Command</span><br />
-            Center
+            Smart Campus<br />
+            <span className="gradient-text">Assets Monitoring System</span><br />
+            (SCAMS)
           </h1>
 
           <p className="text-white/40 text-lg leading-relaxed">
-            Real-time weather & air quality monitoring
-            for any city worldwide.
+            Real-time environmental, surveillance & resource monitoring
+            for your campus infrastructure.
             <br />
             <span className="text-white/30 text-sm mt-2 block font-medium">by VIT AP University</span>
           </p>
@@ -269,7 +269,7 @@ export default function LoginPage() {
           >
             <Image
               src="/image-copy.png"
-              alt="WeatherAI Dashboard Logo"
+              alt="SCAMS Logo"
               width={220}
               height={80}
               className="object-contain"
@@ -285,7 +285,7 @@ export default function LoginPage() {
             transition={{ delay: 0.3 }}
           >
             <h2 className="text-2xl font-bold text-white mb-1">Welcome back</h2>
-            <p className="text-white/35 text-sm">Sign in to access your weather dashboard</p>
+            <p className="text-white/35 text-sm">Sign in to access your SCAMS dashboard</p>
           </motion.div>
 
           {/* Buttons */}
@@ -295,7 +295,7 @@ export default function LoginPage() {
             transition={{ delay: 0.4 }}
           >
             <motion.button
-              onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
+              onClick={() => signIn("google", { callbackUrl: "/" })}
               className="w-full flex items-center gap-3 bg-white text-gray-800 font-semibold py-4 px-6 rounded-2xl shadow-xl shadow-black/20 mb-4"
               whileHover={{ scale: 1.02, boxShadow: "0 20px 40px rgba(0,0,0,0.3)" }}
               whileTap={{ scale: 0.98 }}
@@ -312,7 +312,7 @@ export default function LoginPage() {
             </div>
 
             <motion.button
-              onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
+              onClick={() => signIn("google", { callbackUrl: "/" })}
               className="w-full flex items-center justify-center gap-3 glass border border-white/10 text-white/70 font-medium py-4 px-6 rounded-2xl hover:text-white hover:border-white/20 transition-all duration-200"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}

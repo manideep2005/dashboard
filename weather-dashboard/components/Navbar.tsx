@@ -11,6 +11,8 @@ import { useAppStore, TempUnit } from "@/store/appStore";
 import { useWeatherStore } from "@/store/weatherStore";
 import { getWeatherAlerts } from "@/types/weather";
 import Link from "next/link";
+import ModuleSelector from "@/components/ModuleSelector";
+import { TbGridDots } from "react-icons/tb";
 
 const UNITS: { label: string; value: TempUnit }[] = [
   { label: "°C", value: "celsius" },
@@ -25,6 +27,7 @@ export default function Navbar() {
 
   const [unitOpen, setUnitOpen] = useState(false);
   const [alertsOpen, setAlertsOpen] = useState(false);
+  const [modulesOpen, setModulesOpen] = useState(false);
   const [dismissed, setDismissed] = useState<string[]>([]);
 
   const allAlerts = getWeatherAlerts(weather, airPollution);
@@ -39,34 +42,65 @@ export default function Navbar() {
     >
       <div className="flex items-center justify-between px-6 py-4">
         {/* Logo and Nav Links */}
-        <div className="flex items-center gap-8">
+        <div className="flex flex-col items-start gap-3">
           <Link href="/dashboard" className="flex items-center gap-3">
             <div className={`w-14 h-14 rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/30 ${theme === "dark" ? "bg-white/10" : "bg-white"}`}>
               <Image
-                src="/logo.png"
-                alt="WeatherAI Logo"
-                width={48}
+                src="/image-copy.png"
+                alt="SCAMS Logo"
+                width={80}
                 height={48}
                 className={`rounded-lg object-contain transition-all duration-300 ${theme === "dark" ? "brightness-0 invert opacity-90" : ""}`}
               />
             </div>
-            <div>
-              <span className="font-bold text-2xl gradient-text">WeatherAI</span>
-              <span className="text-white/30 text-base block -mt-1">
-                Dashboard <span className="text-white/20 text-xs ml-1 font-medium">by VIT AP University</span>
+            <div className="flex flex-col max-w-[180px] sm:max-w-[280px] md:max-w-[400px]">
+              <div className="overflow-hidden whitespace-nowrap relative w-full [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
+                <div className="flex w-max animate-marquee hover:[animation-play-state:paused] cursor-default">
+                  <span className="font-bold text-lg md:text-xl gradient-text leading-tight pr-8">Smart Campus Assets Monitoring System (SCAMS)</span>
+                  <span className="font-bold text-lg md:text-xl gradient-text leading-tight pr-8">Smart Campus Assets Monitoring System (SCAMS)</span>
+                </div>
+              </div>
+              <span className="text-white/40 text-[10px] md:text-xs font-medium tracking-wide ml-2 mt-0.5">
+                Dashboard <span className="text-white/20 mx-1">•</span> by VIT AP University
               </span>
             </div>
           </Link>
 
-          {/* New Dashboard Links */}
-          <nav className="hidden md:flex items-center gap-2">
-            <Link href="/solar" className="glass px-4 py-2 rounded-lg text-sm font-semibold text-white/70 hover:text-white transition-colors">
-              Solar Analytics
-            </Link>
-            <Link href="/energy" className="glass px-4 py-2 rounded-lg text-sm font-semibold text-[#2d9da6] hover:text-teal-300 transition-colors">
-              Electric Dash
-            </Link>
-          </nav>
+          {/* Module Selector (Menu) - Under the logo/branding */}
+          <div className="relative ml-[68px]">
+            <button
+              onClick={() => setModulesOpen((prev) => !prev)}
+              className="glass glass-hover h-8 px-4 rounded-lg flex items-center gap-2 text-white/70 hover:text-white transition-all border border-blue-500/20 shadow-lg shadow-black/20"
+            >
+              <TbGridDots size={16} className="text-blue-400" />
+              <span className="text-[10px] font-bold tracking-wider">DASHBOARDS</span>
+            </button>
+            <AnimatePresence>
+              {modulesOpen && (
+                <>
+                  <motion.div
+                    className="fixed inset-0 z-40"
+                    onClick={() => setModulesOpen(false)}
+                  />
+                  <motion.div
+                    className="absolute left-0 top-10 w-[85vw] max-w-2xl max-h-[80vh] overflow-y-auto glass p-6 rounded-2xl z-50 border border-white/10 shadow-2xl"
+                    initial={{ opacity: 0, y: -10, scale: 0.98 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: -10, scale: 0.98 }}
+                    transition={{ type: "spring", damping: 25, stiffness: 400 }}
+                  >
+                    <button
+                      onClick={() => setModulesOpen(false)}
+                      className="absolute top-4 right-4 p-1.5 rounded-full glass hover:bg-white/10 transition-colors z-50 text-white/50 hover:text-white"
+                    >
+                      <IoClose size={20} />
+                    </button>
+                    <ModuleSelector onClose={() => setModulesOpen(false)} />
+                  </motion.div>
+                </>
+              )}
+            </AnimatePresence>
+          </div>
         </div>
 
         {/* Right side */}

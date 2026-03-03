@@ -33,10 +33,10 @@ export async function sendWelcomeEmail(name: string, email: string) {
                 <span style="color:#fff;font-size:24px;font-weight:bold;">W</span>
               </div>
               <h1 style="margin:0;color:#fff;font-size:28px;font-weight:700;letter-spacing:-0.5px;">
-                Welcome to WeatherAI
+                Welcome to SCAMS
               </h1>
               <p style="margin:8px 0 0;color:rgba(255,255,255,0.4);font-size:14px;">
-                Your smart weather dashboard is ready
+                Your smart campus assets monitoring dashboard is ready
               </p>
             </td>
           </tr>
@@ -48,7 +48,7 @@ export async function sendWelcomeEmail(name: string, email: string) {
                 Hey ${firstName}! 👋
               </p>
               <p style="margin:12px 0 0;color:rgba(255,255,255,0.5);font-size:14px;line-height:1.7;">
-                Thanks for signing up. Your account is all set up and ready to go. Here's what you can do with WeatherAI:
+                Thanks for signing up. Your account is all set up and ready to go. Here's what you can do with SCAMS:
               </p>
             </td>
           </tr>
@@ -102,10 +102,10 @@ export async function sendWelcomeEmail(name: string, email: string) {
           <tr>
             <td style="padding:24px 40px;border-top:1px solid rgba(255,255,255,0.05);text-align:center;">
               <p style="margin:0;color:rgba(255,255,255,0.2);font-size:11px;">
-                WeatherAI Dashboard — Real-time weather & air quality monitoring
+                SCAMS Dashboard — Real-time campus assets monitoring
               </p>
               <p style="margin:8px 0 0;color:rgba(255,255,255,0.12);font-size:10px;">
-                Powered by OpenWeatherMap
+                Powered by VIT AP
               </p>
             </td>
           </tr>
@@ -119,15 +119,15 @@ export async function sendWelcomeEmail(name: string, email: string) {
 
   try {
     await transporter.sendMail({
-      from: `"WeatherAI" <${process.env.SMTP_USER || "noreply@weatherai.app"}>`,
+      from: `"SCAMS" <${process.env.SMTP_USER || "noreply@scams.app"}>`,
       to: email,
-      subject: `Welcome to WeatherAI, ${firstName}! 🌤️`,
+      subject: `Welcome to SCAMS, ${firstName}! 🚀`,
       html,
     });
-    console.log(`[WeatherAI] Welcome email sent to ${email}`);
+    console.log(`[SCAMS] Welcome email sent to ${email}`);
     return true;
   } catch (error) {
-    console.error("[WeatherAI] Failed to send welcome email:", error);
+    console.error("[SCAMS] Failed to send welcome email:", error);
     return false;
   }
 }
