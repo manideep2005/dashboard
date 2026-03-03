@@ -1,8 +1,9 @@
 "use client";
 
 import { useSession } from "next-auth/react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useAppStore, TempUnit, AlertChannel } from "@/store/appStore";
+import { requestNotificationPermission, triggerPushNotification } from "@/lib/notifications";
 import Navbar from "@/components/Navbar";
 import Link from "next/link";
 import Image from "next/image";
@@ -79,12 +80,31 @@ export default function SettingsPage() {
     favorites, removeFavorite,
   } = useAppStore();
 
-  const toggleChannel = (ch: AlertChannel) => {
+  const toggleChannel = async (ch: AlertChannel) => {
     if (alertChannels.includes(ch)) {
       setAlertChannels(alertChannels.filter((c) => c !== ch));
     } else {
+      if (ch === "push") {
+        const permission = await requestNotificationPermission();
+        if (permission !== "granted") {
+          alert("Push notifications denied by the browser.");
+          return;
+        }
+      }
       setAlertChannels([...alertChannels, ch]);
     }
+  };
+
+  const testPushNotification = async () => {
+    // Generate a unique fake alert so it bypasses the daily debounce cache
+    const randomId = Math.random().toString(36).substring(7);
+    await triggerPushNotification({
+      type: `test_${randomId}`,
+      severity: "danger",
+      title: "Test Push Notification",
+      message: "This is a test notification to verify your device can receive alerts.",
+      color: "#ef4444"
+    });
   };
 
   return (
@@ -210,8 +230,8 @@ export default function SettingsPage() {
                 key={u.value}
                 onClick={() => setUnit(u.value)}
                 className={`flex-1 glass rounded-2xl p-4 text-center transition-all border ${unit === u.value
-                    ? "border-blue-500/50 bg-blue-500/10 text-blue-400"
-                    : "border-transparent text-white/50 hover:text-white hover:bg-white/5"
+                  ? "border-blue-500/50 bg-blue-500/10 text-blue-400"
+                  : "border-transparent text-white/50 hover:text-white hover:bg-white/5"
                   }`}
               >
                 <p className="text-2xl font-bold">{u.label}</p>
@@ -236,8 +256,8 @@ export default function SettingsPage() {
                 key={iv.value}
                 onClick={() => setAutoRefreshInterval(iv.value)}
                 className={`px-4 py-2 rounded-xl text-sm font-medium transition-all border ${autoRefreshInterval === iv.value
-                    ? "border-blue-500/50 bg-blue-500/10 text-blue-400"
-                    : "glass border-transparent text-white/50 hover:text-white"
+                  ? "border-blue-500/50 bg-blue-500/10 text-blue-400"
+                  : "glass border-transparent text-white/50 hover:text-white"
                   }`}
               >
                 {iv.label}
@@ -282,17 +302,27 @@ export default function SettingsPage() {
                         key={ch.value}
                         onClick={() => toggleChannel(ch.value)}
                         className={`glass rounded-2xl p-4 text-left transition-all border ${active
-                            ? "border-blue-500/50 bg-blue-500/10"
-                            : "border-transparent hover:bg-white/5"
+                          ? "border-blue-500/50 bg-blue-500/10"
+                          : "border-transparent hover:bg-white/5"
                           }`}
                       >
-                        <div className="flex items-center gap-2 mb-1.5">
-                          <span className={active ? "text-blue-400" : "text-white/40"}>
-                            {ch.icon}
-                          </span>
-                          <span className={`text-sm font-semibold ${active ? "text-blue-400" : "text-white/60"}`}>
-                            {ch.label}
-                          </span>
+                        <div className="flex items-center justify-between mb-1.5">
+                          <div className="flex items-center gap-2">
+                            <span className={active ? "text-blue-400" : "text-white/40"}>
+                              {ch.icon}
+                            </span>
+                            <span className={`text-sm font-semibold ${active ? "text-blue-400" : "text-white/60"}`}>
+                              {ch.label}
+                            </span>
+                          </div>
+                          {ch.value === "push" && active && (
+                            <button
+                              onClick={(e) => { e.stopPropagation(); testPushNotification(); }}
+                              className="text-[10px] bg-blue-500/20 text-blue-400 px-2 py-1 rounded hover:bg-blue-500/40 transition-colors"
+                            >
+                              Test
+                            </button>
+                          )}
                         </div>
                         <p className="text-white/30 text-xs leading-relaxed">{ch.desc}</p>
                       </button>

@@ -1,3 +1,5 @@
+import { calculateInternationalAQI } from "@/lib/aqi";
+
 export interface WeatherData {
   name: string;
   sys: { country: string; sunrise: number; sunset: number };
@@ -66,12 +68,22 @@ export interface AQILevel {
 }
 
 export const AQI_LEVELS: Record<number, AQILevel> = {
-  1: { label: "Good", color: "#10b981", bg: "rgba(16,185,129,0.15)", range: "0-50", description: "Air quality is satisfactory" },
-  2: { label: "Fair", color: "#84cc16", bg: "rgba(132,204,22,0.15)", range: "51-100", description: "Acceptable air quality" },
-  3: { label: "Moderate", color: "#f59e0b", bg: "rgba(245,158,11,0.15)", range: "101-150", description: "Sensitive groups may be affected" },
-  4: { label: "Poor", color: "#f97316", bg: "rgba(249,115,22,0.15)", range: "151-200", description: "Everyone may begin to feel effects" },
-  5: { label: "Very Poor", color: "#ef4444", bg: "rgba(239,68,68,0.15)", range: "201+", description: "Health warnings of emergency conditions" },
+  1: { label: "Good", color: "#10b981", bg: "rgba(16,185,129,0.15)", range: "0-50", description: "Air quality is satisfactory, and air pollution poses little or no risk." },
+  2: { label: "Moderate", color: "#eab308", bg: "rgba(234,179,8,0.15)", range: "51-100", description: "Air quality is acceptable. However, there may be a risk for some people." },
+  3: { label: "Unhealthy for Sensitive Groups", color: "#f97316", bg: "rgba(249,115,22,0.15)", range: "101-150", description: "Members of sensitive groups may experience health effects." },
+  4: { label: "Unhealthy", color: "#ef4444", bg: "rgba(239,68,68,0.15)", range: "151-200", description: "Some members of the general public may experience health effects." },
+  5: { label: "Very Unhealthy", color: "#8b5cf6", bg: "rgba(139,92,246,0.15)", range: "201-300", description: "Health alert: The risk of health effects is increased for everyone." },
+  6: { label: "Hazardous", color: "#7f1d1d", bg: "rgba(127,29,29,0.15)", range: "301+", description: "Health warning of emergency conditions: everyone is more likely to be affected." },
 };
+
+export function getAQILevelIndex(aqi: number): number {
+  if (aqi <= 50) return 1;
+  if (aqi <= 100) return 2;
+  if (aqi <= 150) return 3;
+  if (aqi <= 200) return 4;
+  if (aqi <= 300) return 5;
+  return 6;
+}
 
 export interface WeatherAlert {
   type: string;
@@ -124,11 +136,15 @@ export function getWeatherAlerts(
   }
 
   if (airPollution?.list?.[0]) {
-    const aqi = airPollution.list[0].main.aqi;
-    if (aqi >= 5) {
-      alerts.push({ type: "aqi", severity: "danger", title: "Very Poor Air Quality", message: "AQI at hazardous levels. Avoid outdoor activities.", color: "#ef4444" });
-    } else if (aqi >= 4) {
-      alerts.push({ type: "aqi", severity: "warning", title: "Poor Air Quality", message: "Sensitive groups should limit outdoor exposure.", color: "#f97316" });
+    const { aqi } = calculateInternationalAQI(airPollution.list[0].components);
+    const levelIndex = getAQILevelIndex(aqi);
+
+    if (levelIndex >= 5) {
+      alerts.push({ type: "aqi", severity: "danger", title: "Hazardous Air Quality", message: `AQI is ${aqi}. Health alert: everyone may experience serious health effects.`, color: "#7f1d1d" });
+    } else if (levelIndex >= 4) {
+      alerts.push({ type: "aqi", severity: "warning", title: "Unhealthy Air Quality", message: `AQI is ${aqi}. Some members of the general public may experience health effects.`, color: "#ef4444" });
+    } else if (levelIndex >= 3) {
+      alerts.push({ type: "aqi", severity: "warning", title: "Unhealthy for Sensitive Groups", message: `AQI is ${aqi}. Sensitive groups should limit outdoor exposure.`, color: "#f97316" });
     }
   }
 

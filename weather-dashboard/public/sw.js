@@ -54,3 +54,25 @@ self.addEventListener("fetch", (event) => {
       )
   );
 });
+
+self.addEventListener("notificationclick", (event) => {
+  console.log("On notification click: ", event.notification.tag);
+  event.notification.close();
+
+  // If a URL was passed, try to open it or focus an existing window
+  event.waitUntil(
+    clients.matchAll({ type: "window" }).then((windowClients) => {
+      // Check if there is already a window/tab open with the target URL
+      for (var i = 0; i < windowClients.length; i++) {
+        var client = windowClients[i];
+        if (client.url.includes("/dashboard") && "focus" in client) {
+          return client.focus();
+        }
+      }
+      // If none, open a new one
+      if (clients.openWindow) {
+        return clients.openWindow("/dashboard");
+      }
+    })
+  );
+});

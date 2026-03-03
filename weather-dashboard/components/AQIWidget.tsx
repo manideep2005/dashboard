@@ -2,7 +2,8 @@
 
 import { motion } from "framer-motion";
 import { useWeatherStore } from "@/store/weatherStore";
-import { AQI_LEVELS } from "@/types/weather";
+import { AQI_LEVELS, getAQILevelIndex } from "@/types/weather";
+import { calculateInternationalAQI } from "@/lib/aqi";
 
 const PollutantBar = ({ label, value, max, unit, color }: {
   label: string; value: number; max: number; unit: string; color: string;
@@ -27,9 +28,12 @@ const PollutantBar = ({ label, value, max, unit, color }: {
   );
 };
 
-const AQIGauge = ({ aqi }: { aqi: number }) => {
-  const level = AQI_LEVELS[aqi] || AQI_LEVELS[3];
-  const rotation = -135 + ((aqi - 1) / 4) * 270;
+const AQIGauge = ({ aqi, maxAqi = 500 }: { aqi: number; maxAqi?: number }) => {
+  const levelIndex = getAQILevelIndex(aqi);
+  const level = AQI_LEVELS[levelIndex] || AQI_LEVELS[3];
+
+  const boundedAqi = Math.min(Math.max(aqi, 0), maxAqi);
+  const rotation = -135 + (boundedAqi / maxAqi) * 270;
 
   return (
     <div className="flex flex-col items-center gap-2">
@@ -38,10 +42,12 @@ const AQIGauge = ({ aqi }: { aqi: number }) => {
         <svg viewBox="0 0 120 60" className="w-full h-full">
           {/* Track segments */}
           {[
-            { color: "#10b981", d: "M 10 60 A 50 50 0 0 1 37 18" },
-            { color: "#84cc16", d: "M 37 18 A 50 50 0 0 1 60 10" },
-            { color: "#f59e0b", d: "M 60 10 A 50 50 0 0 1 83 18" },
-            { color: "#f97316", d: "M 83 18 A 50 50 0 0 1 110 60" },
+            { color: "#10b981", d: "M 10 60 A 50 50 0 0 1 16.7 35" },
+            { color: "#eab308", d: "M 16.7 35 A 50 50 0 0 1 35 16.7" },
+            { color: "#f97316", d: "M 35 16.7 A 50 50 0 0 1 60 10" },
+            { color: "#ef4444", d: "M 60 10 A 50 50 0 0 1 85 16.7" },
+            { color: "#8b5cf6", d: "M 85 16.7 A 50 50 0 0 1 103.3 35" },
+            { color: "#7f1d1d", d: "M 103.3 35 A 50 50 0 0 1 110 60" },
           ].map((seg, i) => (
             <path
               key={i}
@@ -56,11 +62,13 @@ const AQIGauge = ({ aqi }: { aqi: number }) => {
           {/* Active segment highlight */}
           <path
             d={[
-              "M 10 60 A 50 50 0 0 1 37 18",
-              "M 37 18 A 50 50 0 0 1 60 10",
-              "M 60 10 A 50 50 0 0 1 83 18",
-              "M 83 18 A 50 50 0 0 1 110 60",
-            ][aqi - 1]}
+              "M 10 60 A 50 50 0 0 1 16.7 35",
+              "M 16.7 35 A 50 50 0 0 1 35 16.7",
+              "M 35 16.7 A 50 50 0 0 1 60 10",
+              "M 60 10 A 50 50 0 0 1 85 16.7",
+              "M 85 16.7 A 50 50 0 0 1 103.3 35",
+              "M 103.3 35 A 50 50 0 0 1 110 60",
+            ][levelIndex - 1]}
             fill="none"
             stroke={level.color}
             strokeWidth="8"
@@ -83,7 +91,7 @@ const AQIGauge = ({ aqi }: { aqi: number }) => {
         >
           {level.label}
         </div>
-        <p className="text-white/30 text-xs mt-1">{level.description}</p>
+        <p className="text-white/30 text-[11px] mt-1.5 max-w-[200px] leading-tight text-balance mx-auto">{level.description}</p>
       </div>
     </div>
   );
@@ -113,9 +121,11 @@ export default function AQIWidget() {
   }
 
   const data = airPollution.list[0];
-  const aqi = data.main.aqi;
   const { co, no2, o3, so2, pm2_5, pm10 } = data.components;
-  const level = AQI_LEVELS[aqi] || AQI_LEVELS[3];
+
+  const { aqi, dominantPollutant } = calculateInternationalAQI({ co, no2, o3, so2, pm2_5, pm10 });
+  const levelIndex = getAQILevelIndex(aqi);
+  const level = AQI_LEVELS[levelIndex] || AQI_LEVELS[3];
 
   return (
     <motion.div
@@ -129,13 +139,18 @@ export default function AQIWidget() {
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-lg font-bold text-white">Air Quality Index</h2>
-          <p className="text-white/30 text-xs mt-0.5">Real-time pollution data</p>
+          <p className="text-white/30 text-xs mt-0.5">Real-time US EPA standard</p>
         </div>
-        <div
-          className="text-xs font-medium px-3 py-1.5 rounded-xl border"
-          style={{ color: level.color, borderColor: `${level.color}40`, background: level.bg }}
-        >
-          AQI {aqi}/5
+        <div className="flex flex-col items-end gap-1">
+          <div
+            className="text-xs font-medium px-3 py-1.5 rounded-xl border whitespace-nowrap"
+            style={{ color: level.color, borderColor: `${level.color}40`, background: level.bg }}
+          >
+            AQI {aqi} / 500
+          </div>
+          {dominantPollutant && dominantPollutant !== 'Unknown' && (
+            <p className="text-white/40 text-[10px] uppercase font-semibold">Primary: {dominantPollutant}</p>
+          )}
         </div>
       </div>
 

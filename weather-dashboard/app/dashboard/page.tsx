@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useWeatherStore } from "@/store/weatherStore";
 import { useAppStore, formatTemp } from "@/store/appStore";
 import { getWeatherAlerts } from "@/types/weather";
+import { triggerPushNotification } from "@/lib/notifications";
 import Navbar from "@/components/Navbar";
 import WeatherWidget from "@/components/WeatherWidget";
 import AQIWidget from "@/components/AQIWidget";
@@ -41,19 +42,28 @@ export default function DashboardPage() {
       navigator.serviceWorker.getRegistrations().then((regs) => {
         regs.forEach((r) => r.update());
       });
-      navigator.serviceWorker.register("/sw.js", { updateViaCache: "none" }).catch(() => {});
+      navigator.serviceWorker.register("/sw.js", { updateViaCache: "none" }).catch(() => { });
       // Clear old caches from the broken v1 SW
       if ("caches" in window) {
-        caches.delete("weatherai-v1").catch(() => {});
+        caches.delete("weatherai-v1").catch(() => { });
       }
     }
   }, []);
 
   const alerts = getWeatherAlerts(weather, airPollution);
 
+  // Trigger native push notifications for hazards
+  useEffect(() => {
+    alerts.forEach((alert) => {
+      if (alert.severity === "danger" || alert.severity === "warning") {
+        triggerPushNotification(alert);
+      }
+    });
+  }, [alerts]);
+
   return (
     <div className="min-h-screen bg-animated">
-      <Navbar alertCount={alerts.length} />
+      <Navbar />
 
       <main className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
 
