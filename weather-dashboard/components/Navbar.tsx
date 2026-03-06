@@ -11,7 +11,6 @@ import { useAppStore, TempUnit } from "@/store/appStore";
 import { useWeatherStore } from "@/store/weatherStore";
 import { getWeatherAlerts } from "@/types/weather";
 import Link from "next/link";
-import ModuleSelector from "@/components/ModuleSelector";
 import { TbGridDots } from "react-icons/tb";
 
 const UNITS: { label: string; value: TempUnit }[] = [
@@ -22,12 +21,11 @@ const UNITS: { label: string; value: TempUnit }[] = [
 
 export default function Navbar() {
   const { data: session } = useSession();
-  const { theme, toggleTheme, unit, setUnit } = useAppStore();
+  const { theme, toggleTheme, unit, setUnit, setSidebarOpen } = useAppStore();
   const { weather, airPollution } = useWeatherStore();
 
   const [unitOpen, setUnitOpen] = useState(false);
   const [alertsOpen, setAlertsOpen] = useState(false);
-  const [modulesOpen, setModulesOpen] = useState(false);
   const [dismissed, setDismissed] = useState<string[]>([]);
 
   const allAlerts = getWeatherAlerts(weather, airPollution);
@@ -66,40 +64,15 @@ export default function Navbar() {
             </div>
           </Link>
 
-          {/* Module Selector (Menu) - Under the logo/branding */}
-          <div className="relative ml-[68px] lg:hidden">
+          {/* Sidebar Trigger (Mobile) */}
+          <div className="lg:hidden ml-[68px]">
             <button
-              onClick={() => setModulesOpen((prev) => !prev)}
-              className="glass glass-hover h-8 px-4 rounded-lg flex items-center gap-2 text-black/70 dark:text-white/70 hover:text-black dark:hover:text-white transition-all border border-blue-500/30 shadow-lg shadow-black/10 bg-black/5 dark:bg-white/5"
+              onClick={() => setSidebarOpen(true)}
+              className="glass glass-hover h-9 px-4 rounded-xl flex items-center gap-2 text-black/70 dark:text-white/70 hover:text-black dark:hover:text-white transition-all border border-blue-500/30 shadow-lg shadow-black/10 bg-black/5 dark:bg-white/5"
             >
-              <TbGridDots size={16} className="text-blue-600 dark:text-blue-400" />
-              <span className="text-[10px] font-bold tracking-wider">DASHBOARDS</span>
+              <TbGridDots size={18} className="text-blue-600 dark:text-blue-400" />
+              <span className="text-[10px] font-extrabold tracking-[0.15em] uppercase">Modules</span>
             </button>
-            <AnimatePresence>
-              {modulesOpen && (
-                <>
-                  <motion.div
-                    className="fixed inset-0 z-40"
-                    onClick={() => setModulesOpen(false)}
-                  />
-                  <motion.div
-                    className="absolute left-0 top-10 w-[85vw] max-w-2xl max-h-[80vh] overflow-y-auto glass p-6 rounded-2xl z-50 border border-white/10 shadow-2xl"
-                    initial={{ opacity: 0, y: -10, scale: 0.98 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={{ opacity: 0, y: -10, scale: 0.98 }}
-                    transition={{ type: "spring", damping: 25, stiffness: 400 }}
-                  >
-                    <button
-                      onClick={() => setModulesOpen(false)}
-                      className="absolute top-4 right-4 p-1.5 rounded-full glass hover:bg-white/10 transition-colors z-50 text-white/50 hover:text-white"
-                    >
-                      <IoClose size={20} />
-                    </button>
-                    <ModuleSelector onClose={() => setModulesOpen(false)} />
-                  </motion.div>
-                </>
-              )}
-            </AnimatePresence>
           </div>
         </div>
 

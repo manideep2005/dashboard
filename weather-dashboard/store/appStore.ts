@@ -21,6 +21,7 @@ interface AppStore {
   notificationsEnabled: boolean;
   alertChannels: AlertChannel[];
   alertPreferences: AlertPreferences;
+  sidebarOpen: boolean;
 
   setTheme: (theme: Theme) => void;
   toggleTheme: () => void;
@@ -31,6 +32,7 @@ interface AppStore {
   setNotificationsEnabled: (enabled: boolean) => void;
   setAlertChannels: (channels: AlertChannel[]) => void;
   setAlertPreference: (key: keyof AlertPreferences, value: boolean) => void;
+  setSidebarOpen: (open: boolean) => void;
 }
 
 export const useAppStore = create<AppStore>()(
@@ -49,6 +51,7 @@ export const useAppStore = create<AppStore>()(
         poorAQI: true,
         precipitation: false,
       },
+      sidebarOpen: false,
 
       setTheme: (theme) => {
         set({ theme });
@@ -85,6 +88,8 @@ export const useAppStore = create<AppStore>()(
         const prefs = { ...get().alertPreferences, [key]: value };
         set({ alertPreferences: prefs });
       },
+
+      setSidebarOpen: (open) => set({ sidebarOpen: open }),
     }),
     {
       name: "weatherai-app-store",

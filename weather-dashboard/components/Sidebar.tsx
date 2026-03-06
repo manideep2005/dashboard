@@ -2,10 +2,12 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { WiThermometer } from "react-icons/wi";
 import { TbShieldCheck, TbChartAreaLine, TbWorldPin, TbCube3dSphere } from "react-icons/tb";
 import { IoTimerOutline } from "react-icons/io5";
+import { useAppStore } from "@/store/appStore";
+import { IoClose } from "react-icons/io5";
 
 const navItems = [
     { icon: <WiThermometer size={22} />, title: "Environment", href: "/dashboard", color: "text-orange-500 dark:text-orange-400", bg: "bg-orange-500/10 dark:bg-orange-500/20" },
@@ -18,23 +20,36 @@ const navItems = [
 
 export default function Sidebar() {
     const pathname = usePathname();
+    const { sidebarOpen, setSidebarOpen } = useAppStore();
 
     if (pathname === "/login") return null;
 
-    return (
-        <div className="hidden lg:flex flex-col w-[260px] shrink-0 glass border-r border-black/5 dark:border-white/5 h-screen sticky top-0 bg-white/60 dark:bg-[#0a0f1e]/80 z-50">
+    const SidebarContent = (
+        <div className="flex flex-col w-[280px] sm:w-[300px] lg:w-[260px] shrink-0 glass border-r border-black/5 dark:border-white/5 h-full bg-white/60 dark:bg-[#0a0f1e]/80 z-50 overflow-y-auto">
             <div className="p-6">
-                <h2 className="text-[10px] font-black uppercase tracking-[0.25em] text-black/40 dark:text-white/30 mb-5 ml-2">App Modules</h2>
+                <div className="flex items-center justify-between mb-5 ml-2">
+                    <h2 className="text-[10px] font-black uppercase tracking-[0.25em] text-black/40 dark:text-white/30">App Modules</h2>
+                    <button
+                        onClick={() => setSidebarOpen(false)}
+                        className="lg:hidden p-2 -mr-2 text-black/40 dark:text-white/40 hover:text-black dark:hover:text-white transition-colors"
+                    >
+                        <IoClose size={20} />
+                    </button>
+                </div>
                 <div className="space-y-1.5">
                     {navItems.map((item) => {
                         const isActive = pathname === item.href;
                         return (
-                            <Link key={item.href} href={item.href}>
+                            <Link
+                                key={item.href}
+                                href={item.href}
+                                onClick={() => setSidebarOpen(false)}
+                            >
                                 <motion.div
                                     whileHover={{ x: 4 }}
                                     className={`flex items-center gap-3 px-3 py-3 rounded-xl transition-all duration-300 ${isActive
-                                            ? "bg-black/5 dark:bg-white/10 shadow-inner border border-black/5 dark:border-white/5"
-                                            : "hover:bg-black/[0.03] dark:hover:bg-white/[0.03] border border-transparent"
+                                        ? "bg-black/5 dark:bg-white/10 shadow-inner border border-black/5 dark:border-white/5"
+                                        : "hover:bg-black/[0.03] dark:hover:bg-white/[0.03] border border-transparent"
                                         }`}
                                 >
                                     <div
@@ -65,5 +80,38 @@ export default function Sidebar() {
                 </div>
             </div>
         </div>
+    );
+
+    return (
+        <>
+            {/* Desktop Sidebar */}
+            <aside className="hidden lg:flex h-screen sticky top-0 shrink-0">
+                {SidebarContent}
+            </aside>
+
+            {/* Mobile Sidebar Drawer */}
+            <AnimatePresence>
+                {sidebarOpen && (
+                    <>
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            onClick={() => setSidebarOpen(false)}
+                            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[60] lg:hidden"
+                        />
+                        <motion.aside
+                            initial={{ x: "-100%" }}
+                            animate={{ x: 0 }}
+                            exit={{ x: "-100%" }}
+                            transition={{ type: "spring", damping: 25, stiffness: 200 }}
+                            className="fixed inset-y-0 left-0 z-[70] lg:hidden"
+                        >
+                            {SidebarContent}
+                        </motion.aside>
+                    </>
+                )}
+            </AnimatePresence>
+        </>
     );
 }
