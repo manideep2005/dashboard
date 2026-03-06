@@ -1,4 +1,4 @@
-const CACHE_NAME = "weatherai-v3";
+const CACHE_NAME = "weatherai-v4";
 const PRECACHE_URLS = ["/login"];
 
 self.addEventListener("install", (event) => {

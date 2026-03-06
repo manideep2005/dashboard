@@ -170,7 +170,7 @@ export default function LoginPage() {
   const { theme } = useAppStore();
 
   return (
-    <div className="min-h-screen bg-animated flex relative overflow-hidden">
+    <div className="min-h-[100dvh] lg:min-h-screen bg-animated flex flex-col lg:flex-row relative overflow-hidden">
 
       {/* Background glow orbs */}
       <div className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full bg-blue-500/8 blur-3xl pointer-events-none" />
@@ -178,17 +178,17 @@ export default function LoginPage() {
       <div className="absolute top-3/4 left-1/3 w-64 h-64 rounded-full bg-emerald-500/6 blur-3xl pointer-events-none" />
 
       {/* ── LEFT SIDE ── */}
-      <div className="hidden lg:flex flex-col justify-center flex-1 px-16 relative overflow-hidden">
+      <div className="flex z-10 lg:flex-col flex-col justify-center flex-1 px-6 lg:px-16 pt-8 lg:pt-0 relative overflow-hidden text-center lg:text-left">
 
         {/* Hero text */}
         <motion.div
-          className="relative z-10 max-w-lg mb-10"
+          className="relative z-10 mt-8 lg:mt-0 max-w-lg mx-auto lg:mx-0 lg:mb-10"
           initial={{ opacity: 0, x: -40 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.7, ease: "easeOut" }}
         >
           <motion.div
-            className="inline-flex items-center gap-2 glass px-4 py-2 rounded-full mb-6 border border-blue-500/20"
+            className="inline-flex items-center gap-2 glass px-4 py-2 rounded-full mb-4 lg:mb-6 border border-blue-500/20"
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
@@ -197,22 +197,23 @@ export default function LoginPage() {
             <span className="text-white/60 text-xs font-medium tracking-wide">Live campus intelligence</span>
           </motion.div>
 
-          <h1 className="text-5xl font-bold text-white leading-tight mb-4">
+          <h1 className="text-3xl lg:text-5xl font-bold text-white leading-tight mb-2 lg:mb-4">
             Smart Campus<br />
             <span className="gradient-text">Assets Monitoring System</span><br />
             (SCAMS)
           </h1>
 
-          <p className="text-white/40 text-lg leading-relaxed">
+          <p className="text-white/40 text-sm lg:text-lg leading-relaxed">
             Real-time environmental, surveillance & resource monitoring
             for your campus infrastructure.
             <br />
-            <span className="text-white/30 text-sm mt-2 block font-medium">by VIT AP University</span>
+            <span className="text-white/30 text-xs lg:text-sm mt-1 lg:mt-2 block font-medium">by VIT AP University</span>
           </p>
         </motion.div>
 
         {/* Radar */}
         <motion.div
+          className="hidden lg:block"
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.3, duration: 0.6 }}
@@ -222,7 +223,7 @@ export default function LoginPage() {
 
         {/* World city clocks strip */}
         <motion.div
-          className="grid grid-cols-2 gap-3 max-w-lg"
+          className="hidden lg:grid grid-cols-2 gap-3 max-w-lg"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5, duration: 0.5 }}
@@ -236,7 +237,7 @@ export default function LoginPage() {
         </motion.div>
 
         {/* Bottom weather icons */}
-        <div className="absolute bottom-10 left-16 flex gap-5 opacity-10">
+        <div className="hidden lg:flex absolute bottom-10 left-16 gap-5 opacity-10">
           {[WiDaySunny, WiRain, WiStrongWind, WiNightClear, WiSnow, WiCloudy].map((Icon, i) => (
             <motion.div
               key={i}
@@ -251,7 +252,7 @@ export default function LoginPage() {
       </div>
 
       {/* ── RIGHT SIDE (sign in card) ── */}
-      <div className="flex items-center justify-center w-full lg:w-[460px] lg:flex-shrink-0 px-6 py-12 relative">
+      <div className="flex flex-col lg:flex-row items-center justify-center w-full lg:w-[460px] lg:flex-shrink-0 px-6 py-8 lg:py-12 relative">
         <div className="absolute inset-0 glass border-l border-white/5 hidden lg:block" />
 
         <motion.div
@@ -262,7 +263,7 @@ export default function LoginPage() {
         >
           {/* Logo */}
           <motion.div
-            className="flex items-center justify-center mb-10 -mt-20"
+            className="hidden lg:flex items-center justify-center mb-10 -mt-20"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2 }}
