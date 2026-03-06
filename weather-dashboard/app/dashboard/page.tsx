@@ -43,9 +43,10 @@ export default function DashboardPage() {
         regs.forEach((r) => r.update());
       });
       navigator.serviceWorker.register("/sw.js", { updateViaCache: "none" }).catch(() => { });
-      // Clear old caches from the broken v1 SW
+      // Clear old caches from previous versions
       if ("caches" in window) {
         caches.delete("weatherai-v1").catch(() => { });
+        caches.delete("weatherai-v2").catch(() => { });
       }
     }
   }, []);
