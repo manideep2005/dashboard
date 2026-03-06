@@ -44,13 +44,13 @@ export default function Navbar() {
         {/* Logo and Nav Links */}
         <div className="flex flex-col items-start gap-3">
           <Link href="/dashboard" className="flex items-center gap-3">
-            <div className={`w-14 h-14 rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/30 ${theme === "dark" ? "bg-white/10" : "bg-white"}`}>
+            <div className="w-14 h-14 rounded-xl flex items-center justify-center shadow-lg" style={{ backgroundColor: '#1e293b', border: '1px solid #334155' }}>
               <Image
                 src="/image-copy.png"
                 alt="SCAMS Logo"
                 width={80}
                 height={48}
-                className={`rounded-lg object-contain transition-all duration-300 ${theme === "dark" ? "brightness-0 invert opacity-90" : ""}`}
+                className="rounded-lg object-contain transition-all duration-300"
               />
             </div>
             <div className="flex flex-col max-w-[180px] sm:max-w-[280px] md:max-w-[400px]">
@@ -67,12 +67,12 @@ export default function Navbar() {
           </Link>
 
           {/* Module Selector (Menu) - Under the logo/branding */}
-          <div className="relative ml-[68px]">
+          <div className="relative ml-[68px] lg:hidden">
             <button
               onClick={() => setModulesOpen((prev) => !prev)}
-              className="glass glass-hover h-8 px-4 rounded-lg flex items-center gap-2 text-white/70 hover:text-white transition-all border border-blue-500/20 shadow-lg shadow-black/20"
+              className="glass glass-hover h-8 px-4 rounded-lg flex items-center gap-2 text-black/70 dark:text-white/70 hover:text-black dark:hover:text-white transition-all border border-blue-500/30 shadow-lg shadow-black/10 bg-black/5 dark:bg-white/5"
             >
-              <TbGridDots size={16} className="text-blue-400" />
+              <TbGridDots size={16} className="text-blue-600 dark:text-blue-400" />
               <span className="text-[10px] font-bold tracking-wider">DASHBOARDS</span>
             </button>
             <AnimatePresence>

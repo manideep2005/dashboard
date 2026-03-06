@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { Providers } from "./Providers";
 import ThemeInitializer from "@/components/ThemeInitializer";
+import Sidebar from "@/components/Sidebar";
 
 export const viewport: Viewport = {
   themeColor: "#0a0f1e",
@@ -31,7 +32,12 @@ export default function RootLayout({
       <body className="bg-animated min-h-screen antialiased">
         <Providers>
           <ThemeInitializer />
-          {children}
+          <div className="flex w-full min-h-screen">
+            <Sidebar />
+            <div className="flex-1 flex flex-col min-w-0">
+              {children}
+            </div>
+          </div>
         </Providers>
       </body>
     </html>
