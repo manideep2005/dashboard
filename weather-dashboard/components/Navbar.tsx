@@ -42,12 +42,12 @@ export default function Navbar() {
         {/* Logo and Nav Links */}
         <div className="flex flex-col items-start gap-3">
           <Link href="/dashboard" className="flex items-center gap-3">
-            <div className="w-14 h-14 flex items-center justify-center">
+            <div className="w-14 h-20 flex items-center justify-center">
               <Image
                 src="/image-copy.png"
                 alt="SCAMS Logo"
                 width={80}
-                height={48}
+                height={72}
                 className="rounded-lg object-contain transition-all duration-300"
               />
             </div>
