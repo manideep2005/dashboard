@@ -486,6 +486,15 @@ export default function EnergyDashboard() {
                     )}
                 </AnimatePresence>
 
+                <motion.div
+                    className="text-center text-white/40 text-xs pb-04"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 1.2 }}
+                >
+                    Developed by Manideep, Centre of Excellence, Artificial Intelligence and Robotics (AIR)
+                </motion.div>
+
             </main>
         </div>
     );

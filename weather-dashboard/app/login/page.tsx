@@ -263,17 +263,17 @@ export default function LoginPage() {
         >
           {/* Logo */}
           <motion.div
-            className="hidden lg:flex items-center justify-center mb-10 -mt-20"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.2 }}
+            className="flex items-center justify-center mb-8 lg:mb-12 lg:-mt-20 px-4"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2, duration: 0.5 }}
           >
             <Image
               src="/image-copy.png"
               alt="SCAMS Logo"
-              width={220}
-              height={80}
-              className="object-contain"
+              width={160}
+              height={55}
+              className="object-contain rounded-xl lg:w-[220px] lg:h-[80px] drop-shadow-[0_10px_10px_rgba(0,0,0,0.3)]"
               priority
             />
           </motion.div>

@@ -326,6 +326,15 @@ export default function CampusMapPage() {
                 )}
             </AnimatePresence>
 
+            <motion.div
+                className="text-center text-white/40 text-xs pb-4 absolute bottom-4 right-4 z-10"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 1.2 }}
+            >
+                Developed by Manideep, Centre of Excellence, Artificial Intelligence and Robotics (AIR)
+            </motion.div>
+
         </div>
     );
 }
