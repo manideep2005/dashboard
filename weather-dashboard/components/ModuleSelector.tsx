@@ -78,7 +78,7 @@ export default function ModuleSelector({ onClose }: { onClose?: () => void }) {
             <span className="text-white/60 text-[10px] font-medium tracking-wide">Live campus intelligence</span>
           </div>
           <h1 className="text-xl md:text-2xl font-extrabold text-white mb-1 tracking-tight">Select <span className="gradient-text">Module</span></h1>
-          <p className="text-white/40 text-[11px]">Choose a dashboard to enter SCAMS</p>
+          <p className="text-white/40 text-[11px]">Choose a dashboard to enter SAMS</p>
         </motion.div>
 
         <motion.div

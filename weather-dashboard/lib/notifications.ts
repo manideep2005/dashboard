@@ -61,7 +61,7 @@ export async function triggerPushNotification(alert: WeatherAlert) {
     try {
         const registration = await navigator.serviceWorker.ready;
 
-        await registration.showNotification(`⚠️ SCAMS: ${alert.title}`, {
+        await registration.showNotification(`⚠️ SAMS: ${alert.title}`, {
             body: alert.message,
             icon: "/icon-192.png",
             badge: "/icon-192.png",

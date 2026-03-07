@@ -102,7 +102,7 @@ export default function DashboardPage() {
               exit={{ opacity: 0, y: -10 }}
             >
               <IoTimeOutline size={22} className="text-amber-400 flex-shrink-0" />
-              
+
               <button
                 onClick={() => fetchAll(city)}
                 className="ml-auto glass px-3 py-1.5 rounded-xl text-amber-400 text-xs font-medium hover:bg-amber-500/10 transition-colors flex-shrink-0"
@@ -202,7 +202,7 @@ export default function DashboardPage() {
           animate={{ opacity: 1 }}
           transition={{ delay: 1.2 }}
         >
-          Developed by Manideep, Centre of Excellence, Artificial Intelligence and Robotics (AIR)
+          Developed by Manideep.G<br />Centre of Excellence, Artificial Intelligence and Robotics (AIR)
         </motion.div>
       </main>
     </div>

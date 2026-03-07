@@ -1,6 +1,6 @@
 {
-  "name": "Smart Campus Assets Monitoring System (SCAMS)",
-  "short_name": "SCAMS",
+  "name": "Smart Asset Management System (SAMS)",
+  "short_name": "SAMS",
   "description": "Real-time campus assets monitoring dashboard",
   "start_url": "/dashboard",
   "display": "standalone",

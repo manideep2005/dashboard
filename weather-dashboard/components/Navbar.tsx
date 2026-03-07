@@ -45,7 +45,7 @@ export default function Navbar() {
             <div className="w-14 h-20 flex items-center justify-center">
               <Image
                 src="/image-copy.png"
-                alt="SCAMS Logo"
+                alt="SAMS Logo"
                 width={80}
                 height={72}
                 className="rounded-lg object-contain transition-all duration-300"
@@ -54,12 +54,12 @@ export default function Navbar() {
             <div className="flex flex-col max-w-[180px] sm:max-w-[280px] md:max-w-[400px]">
               <div className="overflow-hidden whitespace-nowrap relative w-full [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
                 <div className="flex w-max animate-marquee hover:[animation-play-state:paused] cursor-default">
-                  <span className="font-bold text-lg md:text-xl gradient-text leading-tight pr-8">Smart Campus Assets Monitoring System (SCAMS)</span>
-                  <span className="font-bold text-lg md:text-xl gradient-text leading-tight pr-8">Smart Campus Assets Monitoring System (SCAMS)</span>
+                  <span className="font-bold text-lg md:text-xl gradient-text leading-tight pr-8">Smart Asset Management System (SAMS)</span>
+                  <span className="font-bold text-lg md:text-xl gradient-text leading-tight pr-8">Smart Asset Management System (SAMS)</span>
                 </div>
               </div>
               <span className="text-white/40 text-[10px] md:text-xs font-medium tracking-wide ml-2 mt-0.5">
-                Dashboard <span className="text-white/20 mx-1">•</span> by VIT AP University
+                Dashboard <span className="text-white/20 mx-1">•</span> Developed by Manideep.G
               </span>
             </div>
           </Link>

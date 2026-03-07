@@ -199,15 +199,15 @@ export default function LoginPage() {
 
           <h1 className="text-3xl lg:text-5xl font-bold text-white leading-tight mb-2 lg:mb-4">
             Smart Campus<br />
-            <span className="gradient-text">Assets Monitoring System</span><br />
-            (SCAMS)
+            <span className="gradient-text">Asset Management System</span><br />
+            (SAMS)
           </h1>
 
           <p className="text-white/40 text-sm lg:text-lg leading-relaxed">
             Real-time environmental, surveillance & resource monitoring
             for your campus infrastructure.
             <br />
-            <span className="text-white/30 text-xs lg:text-sm mt-1 lg:mt-2 block font-medium">by VIT AP University</span>
+            <span className="text-white/30 text-xs lg:text-sm mt-1 lg:mt-2 block font-medium">Developed by Manideep.G<br />Centre of Excellence, AIR</span>
           </p>
         </motion.div>
 
@@ -270,7 +270,7 @@ export default function LoginPage() {
           >
             <Image
               src="/image-copy.png"
-              alt="SCAMS Logo"
+              alt="SAMS Logo"
               width={160}
               height={55}
               className="object-contain rounded-xl lg:w-[220px] lg:h-[80px] drop-shadow-[0_10px_10px_rgba(0,0,0,0.3)]"
@@ -286,7 +286,7 @@ export default function LoginPage() {
             transition={{ delay: 0.3 }}
           >
             <h2 className="text-2xl font-bold text-white mb-1">Welcome back</h2>
-            <p className="text-white/35 text-sm">Sign in to access your SCAMS dashboard</p>
+            <p className="text-white/35 text-sm">Sign in to access your SAMS dashboard</p>
           </motion.div>
 
           {/* Buttons */}
@@ -354,7 +354,7 @@ export default function LoginPage() {
             transition={{ delay: 0.7 }}
           >
             By signing in you agree to our Terms & Privacy Policy.
-            <br />Powered by OpenWeatherMap API &bull; <span className="text-white/20 font-medium">by VIT AP University</span>
+            <br />Powered by OpenWeatherMap API &bull; <span className="text-white/20 font-medium">Developed by Manideep.G, Centre of Excellence, AIR</span>
           </motion.p>
         </motion.div>
       </div>

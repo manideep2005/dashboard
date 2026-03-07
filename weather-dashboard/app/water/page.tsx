@@ -41,19 +41,19 @@ const generateDummyData = (): WaterData[] => {
     const data: WaterData[] = [];
     const baseDate = new Date();
     baseDate.setHours(0, 0, 0, 0);
-    
+
     for (let hour = 0; hour < 24; hour++) {
         for (let min = 0; min < 60; min += 15) {
             const time = new Date(baseDate);
             time.setHours(hour, min);
-            
+
             const hourFactor = hour >= 6 && hour <= 22 ? 1.5 : 0.4;
             const consumption = Math.max(10, (30 + Math.random() * 40) * hourFactor);
             const tankLevel = Math.max(20, Math.min(95, 70 + Math.sin(hour / 24 * Math.PI * 2) * 25 + Math.random() * 5));
             const pressure = 2.5 + Math.sin(hour / 24 * Math.PI * 2) * 0.5 + Math.random() * 0.3;
             const flowRate = consumption / 100 * 3 + Math.random() * 0.5;
             const quality = 85 + Math.random() * 12;
-            
+
             data.push({
                 time: time.toISOString(),
                 timeOnly: `${hour.toString().padStart(2, '0')}:${min.toString().padStart(2, '0')}`,
@@ -148,7 +148,7 @@ export default function WaterDashboard() {
 
     const hourlyData = useMemo(() => {
         const hourlyMap: Record<string, { hour: string, consumption: number, count: number }> = {};
-        
+
         dummyData.forEach(entry => {
             const hour = entry.timeOnly.split(":")[0];
             const hourStr = `${hour}:00`;
@@ -404,11 +404,10 @@ export default function WaterDashboard() {
                                             <p className="text-xs text-slate-500">{alert.time}</p>
                                         </div>
                                     </div>
-                                    <span className={`px-3 py-1 rounded-full text-xs font-semibold ${
-                                        alert.status === 'Active' ? 'bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400' :
-                                        alert.status === 'Investigating' ? 'bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400' :
-                                        'bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400'
-                                    }`}>
+                                    <span className={`px-3 py-1 rounded-full text-xs font-semibold ${alert.status === 'Active' ? 'bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400' :
+                                            alert.status === 'Investigating' ? 'bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400' :
+                                                'bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400'
+                                        }`}>
                                         {alert.status}
                                     </span>
                                 </div>
@@ -480,7 +479,7 @@ export default function WaterDashboard() {
                     animate={{ opacity: 1 }}
                     transition={{ delay: 1.2 }}
                 >
-                    Developed by Manideep, Centre of Excellence, Artificial Intelligence and Robotics (AIR)
+                    Developed by Manideep.G<br />Centre of Excellence, Artificial Intelligence and Robotics (AIR)
                 </motion.div>
 
             </main>

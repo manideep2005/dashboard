@@ -329,20 +329,17 @@ export default function SurveillanceDashboard() {
                                 <div key={alert.id} className="p-3 rounded-xl bg-slate-50 dark:bg-slate-700/30 border border-slate-100 dark:border-slate-700">
                                     <div className="flex items-start justify-between gap-2 mb-2">
                                         <div className="flex items-center gap-2">
-                                            <div className={`w-2 h-2 rounded-full ${
-                                                alert.severity === 'critical' ? 'bg-red-500' : alert.severity === 'warning' ? 'bg-amber-500' : 'bg-blue-500'
-                                            }`} />
-                                            <span className={`text-xs font-semibold ${
-                                                alert.severity === 'critical' ? 'text-red-500' : alert.severity === 'warning' ? 'text-amber-500' : 'text-blue-500'
-                                            }`}>
+                                            <div className={`w-2 h-2 rounded-full ${alert.severity === 'critical' ? 'bg-red-500' : alert.severity === 'warning' ? 'bg-amber-500' : 'bg-blue-500'
+                                                }`} />
+                                            <span className={`text-xs font-semibold ${alert.severity === 'critical' ? 'text-red-500' : alert.severity === 'warning' ? 'text-amber-500' : 'text-blue-500'
+                                                }`}>
                                                 {alert.type}
                                             </span>
                                         </div>
-                                        <span className={`text-[10px] px-2 py-0.5 rounded-full ${
-                                            alert.status === 'active' ? 'bg-red-100 dark:bg-red-900/30 text-red-600' :
-                                            alert.status === 'acknowledged' ? 'bg-amber-100 dark:bg-amber-900/30 text-amber-600' :
-                                            'bg-green-100 dark:bg-green-900/30 text-green-600'
-                                        }`}>
+                                        <span className={`text-[10px] px-2 py-0.5 rounded-full ${alert.status === 'active' ? 'bg-red-100 dark:bg-red-900/30 text-red-600' :
+                                                alert.status === 'acknowledged' ? 'bg-amber-100 dark:bg-amber-900/30 text-amber-600' :
+                                                    'bg-green-100 dark:bg-green-900/30 text-green-600'
+                                            }`}>
                                             {alert.status}
                                         </span>
                                     </div>
@@ -479,9 +476,8 @@ export default function SurveillanceDashboard() {
                                         <td className="py-3 px-4 text-sm text-slate-600 dark:text-slate-300">{log.location}</td>
                                         <td className="py-3 px-4 text-sm text-slate-600 dark:text-slate-300">{log.time}</td>
                                         <td className="py-3 px-4">
-                                            <span className={`px-2 py-1 rounded-full text-xs font-semibold ${
-                                                log.type === 'entry' ? 'bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400' : 'bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400'
-                                            }`}>
+                                            <span className={`px-2 py-1 rounded-full text-xs font-semibold ${log.type === 'entry' ? 'bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400' : 'bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400'
+                                                }`}>
                                                 {log.type.charAt(0).toUpperCase() + log.type.slice(1)}
                                             </span>
                                         </td>
@@ -499,7 +495,7 @@ export default function SurveillanceDashboard() {
                     animate={{ opacity: 1 }}
                     transition={{ delay: 1.2 }}
                 >
-                    Developed by Manideep, Centre of Excellence, Artificial Intelligence and Robotics (AIR)
+                    Developed by Manideep.G<br />Centre of Excellence, Artificial Intelligence and Robotics (AIR)
                 </motion.div>
 
             </main>

@@ -404,7 +404,7 @@ export default function SettingsPage() {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5 }}
         >
-          SCAMS Dashboard v2.0 <span className="mx-1">&bull;</span> <span className="text-white/20 font-medium">by VIT AP University</span>
+          SAMS Dashboard v2.0 <span className="mx-1">&bull;</span> <span className="text-white/20 font-medium">Developed by Manideep.G, Centre of Excellence, AIR</span>
         </motion.p>
       </main>
     </div>

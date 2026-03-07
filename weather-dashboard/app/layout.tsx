@@ -9,13 +9,13 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "Smart Campus Assets Monitoring System (SCAMS)",
+  title: "Smart Asset Management System (SAMS)",
   description: "Real-time campus assets monitoring dashboard",
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
     statusBarStyle: "black-translucent",
-    title: "SCAMS",
+    title: "SAMS",
   },
 };
 
