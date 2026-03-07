@@ -36,20 +36,6 @@ export default function DashboardPage() {
     }
   }, [fetchAll]);
 
-  // Register service worker for PWA — force update to replace old broken SW
-  useEffect(() => {
-    if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.getRegistrations().then((regs) => {
-        regs.forEach((r) => r.update());
-      });
-      navigator.serviceWorker.register("/sw.js", { updateViaCache: "none" }).catch(() => { });
-      // Clear old caches from previous versions
-      if ("caches" in window) {
-        caches.delete("weatherai-v1").catch(() => { });
-        caches.delete("weatherai-v2").catch(() => { });
-      }
-    }
-  }, []);
 
   const alerts = getWeatherAlerts(weather, airPollution);
 
@@ -116,12 +102,7 @@ export default function DashboardPage() {
               exit={{ opacity: 0, y: -10 }}
             >
               <IoTimeOutline size={22} className="text-amber-400 flex-shrink-0" />
-              <div>
-                <p className="text-amber-400 font-semibold text-sm">OpenWeatherMap API key is still activating</p>
-                <p className="text-amber-400/60 text-xs mt-0.5">
-                  New keys take up to 2 hours to activate. Click retry when ready.
-                </p>
-              </div>
+              
               <button
                 onClick={() => fetchAll(city)}
                 className="ml-auto glass px-3 py-1.5 rounded-xl text-amber-400 text-xs font-medium hover:bg-amber-500/10 transition-colors flex-shrink-0"
@@ -215,15 +196,13 @@ export default function DashboardPage() {
           <MapWidget />
           <HistoricalChart />
         </div>
-
-        {/* Footer */}
         <motion.div
-          className="text-center text-white/15 text-xs pb-4"
+          className="text-center text-white/15 text-xs pb-04"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 1 }}
+          transition={{ delay: 1.2 }}
         >
-          Data provided by OpenWeatherMap · Auto-refreshes based on your settings
+          Developed by G.Manideep
         </motion.div>
       </main>
     </div>

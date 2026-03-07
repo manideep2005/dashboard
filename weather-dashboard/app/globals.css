@@ -135,7 +135,6 @@ body {
   outline: none;
 }
 
-/* Hide scrollbar but keep scroll */
 .scrollbar-hide {
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -144,7 +143,6 @@ body {
   display: none;
 }
 
-/* Light theme text overrides */
 [data-theme="light"] .text-white {
   color: var(--text-primary) !important;
 }

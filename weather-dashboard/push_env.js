@@ -28,13 +28,13 @@ try {
     }
 
     // ensure the new domain is set correctly
-    console.log(`Setting NEXTAUTH_URL to https://scams-by-vit.vercel.app...`);
-    execSync(`printf "%s" "https://scams-by-vit.vercel.app" | vercel env rm NEXTAUTH_URL production -y || true`, { stdio: 'pipe' });
-    execSync(`printf "%s" "https://scams-by-vit.vercel.app" | vercel env add NEXTAUTH_URL production`, { stdio: 'inherit' });
+    console.log(`Setting NEXTAUTH_URL to https://scams.vitap.ac.in...`);
+    execSync(`printf "%s" "https://scams.vitap.ac.in" | vercel env rm NEXTAUTH_URL production -y || true`, { stdio: 'pipe' });
+    execSync(`printf "%s" "https://scams.vitap.ac.in" | vercel env add NEXTAUTH_URL production`, { stdio: 'inherit' });
 
-    console.log(`Setting AUTH_URL to https://scams-by-vit.vercel.app...`);
-    execSync(`printf "%s" "https://scams-by-vit.vercel.app" | vercel env rm AUTH_URL production -y || true`, { stdio: 'pipe' });
-    execSync(`printf "%s" "https://scams-by-vit.vercel.app" | vercel env add AUTH_URL production`, { stdio: 'inherit' });
+    console.log(`Setting AUTH_URL to https://scams.vitap.ac.in...`);
+    execSync(`printf "%s" "https://scams.vitap.ac.in" | vercel env rm AUTH_URL production -y || true`, { stdio: 'pipe' });
+    execSync(`printf "%s" "https://scams.vitap.ac.in" | vercel env add AUTH_URL production`, { stdio: 'inherit' });
 
     console.log('Environment variables updated successfully!');
 } catch (e) {
