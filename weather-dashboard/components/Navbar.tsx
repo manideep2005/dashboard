@@ -42,7 +42,7 @@ export default function Navbar() {
         {/* Logo and Nav Links */}
         <div className="flex flex-col items-start gap-3">
           <Link href="/dashboard" className="flex items-center gap-3">
-            <div className="w-14 h-14 rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/30" style={{ backgroundColor: theme === 'dark' ? '#1e293b' : '#ffffff' }}>
+            <div className="w-14 h-14 flex items-center justify-center">
               <Image
                 src="/image-copy.png"
                 alt="SCAMS Logo"

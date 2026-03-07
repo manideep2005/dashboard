@@ -28,6 +28,7 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <link rel="apple-touch-icon" href="/icon-192.png" />
+        <link rel="icon" href="/image-copy.png" type="image/png" />
       </head>
       <body className="bg-animated min-h-screen antialiased">
         <Providers>
