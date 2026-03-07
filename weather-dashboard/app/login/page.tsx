@@ -206,8 +206,6 @@ export default function LoginPage() {
           <p className="text-white/40 text-sm lg:text-lg leading-relaxed">
             Real-time environmental, surveillance & resource monitoring
             for your campus infrastructure.
-            <br />
-            <span className="text-white/30 text-xs lg:text-sm mt-1 lg:mt-2 block font-medium">Developed by Manideep.G<br />Centre of Excellence, AIR</span>
           </p>
         </motion.div>
 
@@ -354,7 +352,7 @@ export default function LoginPage() {
             transition={{ delay: 0.7 }}
           >
             By signing in you agree to our Terms & Privacy Policy.
-            <br />Powered by OpenWeatherMap API &bull; <span className="text-white/20 font-medium">Developed by Manideep.G, Centre of Excellence, AIR</span>
+            <br />Powered by OpenWeatherMap API
           </motion.p>
         </motion.div>
       </div>

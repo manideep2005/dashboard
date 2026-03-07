@@ -59,7 +59,7 @@ export default function Navbar() {
                 </div>
               </div>
               <span className="text-white/40 text-[10px] md:text-xs font-medium tracking-wide ml-2 mt-0.5">
-                Dashboard <span className="text-white/20 mx-1">•</span> Developed by Manideep.G
+                Dashboard
               </span>
             </div>
           </Link>
